@@ -1,0 +1,3 @@
+Rato,bicicleta,carro!
+Casa!Bico,rato;carro?
+Carro:bicicleta

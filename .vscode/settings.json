@@ -12,6 +12,8 @@
         "Exceptions": "python",
         "Logging": "python",
         "Helper": "python",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "iostream": "cpp",
+        "list": "cpp"
     }
 }
