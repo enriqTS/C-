@@ -41,7 +41,6 @@ public:
 
     string search(string pat);
     string display(string pat);
-    void showInd(string text);
 };
 
 void SuffixTrieNode::insertSuffix(string s, int index, char word)
@@ -85,34 +84,6 @@ string SuffixTrie::search(string pat)
         int patLen = pat.length();
         for (i = result->begin(); i != result->end(); ++i)
             aux += to_string(*i - patLen) + ",";
-    }
-    aux.pop_back();
-    return aux;
-}
-
-string SuffixTrie::display(string pat)
-{
-    list<int> *result = root.search(pat);
-
-    string aux = "";
-
-    if (result == NULL)
-    {
-        cout << "Palavra não encontrada"
-             << endl;
-        return "";
-    }
-
-    else
-    {
-        string aux2;
-        list<int>::iterator i;
-        int patLen = pat.length();
-        for (i = result->begin(); i != result->end(); ++i)
-        {
-            aux2 = *i - patLen;
-            aux += to_string(*i - patLen);
-        }
     }
     aux.pop_back();
     return aux;
@@ -196,7 +167,6 @@ string showIndex(string text, SuffixTrie S)
 {
     string aux = "";
     string indexs = "";
-    // string result = S.search(text);
 
     for (int i = 0; i < text.length(); i++)
     {
@@ -218,7 +188,32 @@ string showIndex(string text, SuffixTrie S)
     return indexs;
 }
 
-void SepareWords(string &text)
+string PartSearch(string text, string original, string pattern, SuffixTrie S){
+    string position = S.search(pattern);
+    string aux = "";
+    string indexs = "";
+
+    for (int i = 0; i < text.length(); i++)
+    {
+        if (text[i] == ',')
+        {
+            if ((indexs.find(aux) >= indexs.length()) && aux == pattern)
+            {
+                indexs += aux + ", " + S.search(aux) + "\n";
+            }
+            i++;
+            aux = "";
+        }
+        if (text[i] != '\n')
+        {
+            aux += text[i];
+        }
+    }
+    HighlightText(position, original, pattern.length());
+    return indexs;
+}
+
+void SeparateWords(string &text)
 {
     for (int i = 0; i < text.length(); i++)
     {
@@ -275,14 +270,13 @@ int main()
 
     SuffixTrie S(text);
 
-    // S.display(text);
-
     while (choice == 1 || choice == 2 || choice == 3)
     {
         cout << "** Menu **" << endl;
-        cout << "Digite 1 para a construção dos índices" << endl;
+        cout << "Digite 1 para a construcao dos indices" << endl;
         cout << "Digite 2 para consultar uma palavra" << endl;
         cout << "Digite 3 para consultar parte do texto" << endl;
+        cout << "Digite 4 para sair" << endl;
         cout << endl;
 
         cin >> choice;
@@ -293,7 +287,7 @@ int main()
             cout << "Indices: " << endl;
             string aux = text;
             OneLine(aux);
-            SepareWords(aux);
+            SeparateWords(aux);
             cout << showIndex(aux, S);
             cout << "\n\n";
         }
@@ -313,9 +307,21 @@ int main()
         }
         else if (choice == 3)
         {
-            cout << "não achei" << endl;
+            string word;
+            string aux = text;
+
+            cout << "Digite o que deseja pesquisar: ";
+            cin >> word;
+
+            OneLine(aux);
+            SeparateWords(aux);
+            PartSearch(aux, text, word, S);
+            cout << "\n\n";
+        }
+        else if (choice == 4)
+        {
+            return 0;
         }
     }
 
-    return 0;
 }
