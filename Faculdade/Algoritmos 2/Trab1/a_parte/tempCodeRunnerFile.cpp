@@ -1,1 +1,0 @@
-S.display(text);

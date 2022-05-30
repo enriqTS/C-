@@ -188,31 +188,6 @@ string showIndex(string text, SuffixTrie S)
     return indexs;
 }
 
-string PartSearch(string text, string original, string pattern, SuffixTrie S){
-    string position = S.search(pattern);
-    string aux = "";
-    string indexs = "";
-
-    for (int i = 0; i < text.length(); i++)
-    {
-        if (text[i] == ',')
-        {
-            if ((indexs.find(aux) >= indexs.length()) && aux == pattern)
-            {
-                indexs += aux + ", " + S.search(aux) + "\n";
-            }
-            i++;
-            aux = "";
-        }
-        if (text[i] != '\n')
-        {
-            aux += text[i];
-        }
-    }
-    HighlightText(position, original, pattern.length());
-    return indexs;
-}
-
 void SeparateWords(string &text)
 {
     for (int i = 0; i < text.length(); i++)
@@ -307,16 +282,7 @@ int main()
         }
         else if (choice == 3)
         {
-            string word;
-            string aux = text;
-
-            cout << "Digite o que deseja pesquisar: ";
-            cin >> word;
-
-            OneLine(aux);
-            SeparateWords(aux);
-            PartSearch(aux, text, word, S);
-            cout << "\n\n";
+            cout << "Esse nao foi" << endl;
         }
         else if (choice == 4)
         {
