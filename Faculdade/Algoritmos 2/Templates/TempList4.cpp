@@ -23,6 +23,6 @@ class pessoa
 
 int main()
 {
-    pessoa P("Antonio", 19);
+    pessoa P("Antoni", 19);
     std::cout << P << std::endl;
 }
