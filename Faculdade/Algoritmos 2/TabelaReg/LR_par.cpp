@@ -55,6 +55,21 @@ void inicializa(celula *l, int n)
 
 void insere(celula *l, dados d)
 {
+    if(l[0].cabecalho.quant==0){
+        l[0].cabecalho.first=1;
+        l[0].cabecalho.last=1;
+        l[1].lista.reg=d;
+        l[0].cabecalho.free++;
+        l[0].cabecalho.quant++;
+    }
+    else{
+        l[l[0].cabecalho.free].lista.reg = d;
+        l[l[0].cabecalho.free].lista.next = l[0].cabecalho.free + 1;
+        l[l[0].cabecalho.free].lista.prev = l[0].cabecalho.free - 1;
+        l[0].cabecalho.last = l[0].cabecalho.free;
+        l[0].cabecalho.free++;
+        l[0].cabecalho.quant++;
+    }
     
 }
 
